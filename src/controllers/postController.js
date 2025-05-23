@@ -2,7 +2,7 @@ const { Post, User, Category } = require('../models');
 const { validationResult } = require('express-validator');
 const { Op } = require('sequelize');
 
-// Utility: format createdAt/updatedAt to ISO string
+//format createdAt/updatedAt to ISO string
 const formatPostDate = (post) => {
   const postJSON = post.toJSON();
   return {
@@ -12,7 +12,7 @@ const formatPostDate = (post) => {
   };
 };
 
-// Get all posts
+//all posts
 exports.getAllPosts = async (req, res) => {
   try {
     const page = parseInt(req.query.page) || 1;
@@ -58,7 +58,7 @@ exports.getAllPosts = async (req, res) => {
   }
 };
 
-// Get post by ID
+// post by ID
 exports.getPostById = async (req, res) => {
   try {
     const post = await Post.findByPk(req.params.id, {
@@ -240,7 +240,7 @@ exports.deletePost = async (req, res) => {
   }
 };
 
-// Get posts by user
+// posts by user
 exports.getUserPosts = async (req, res) => {
   try {
     const posts = await Post.findAll({

@@ -42,18 +42,18 @@ const User = sequelize.define('User', {
   underscored: true
 });
 
-// Hash password before saving
+// Hashing password
 User.beforeCreate(async (user) => {
   const salt = await bcrypt.genSalt(10);
   user.password = await bcrypt.hash(user.password, salt);
 });
 
-// Method to compare password
+//compare password
 User.prototype.comparePassword = async function(password) {
   return await bcrypt.compare(password, this.password);
 };
 
-// Method to return user data without password
+//return user data without password
 User.prototype.toJSON = function() {
   const values = { ...this.get() };
   delete values.password;

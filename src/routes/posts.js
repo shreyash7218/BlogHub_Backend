@@ -11,7 +11,7 @@ router.get('/', postController.getAllPosts);
 // Search posts
 router.get('/search', postController.searchPosts);
 
-// Create a new post with validation
+// Create a new post
 router.post(
   '/',
   authenticate,
@@ -34,7 +34,7 @@ router.post(
   postController.createPost
 );
 
-// Update a post with validation
+// Update a post
 router.put(
   '/:id',
   authenticate,

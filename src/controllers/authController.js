@@ -1,20 +1,10 @@
-const jwt = require('jsonwebtoken');
 const { User } = require('../models');
 const { validationResult } = require('express-validator');
-const { Op } = require('sequelize');  // <-- Add this line
+const { Op } = require('sequelize');
+const generateToken = require('../utils/generateToken');
 
-// Generate JWT token
-const generateToken = (user) => {
-  return jwt.sign(
-    { id: user.id, email: user.email, username: user.username },
-    process.env.JWT_SECRET || 'your-secret-key',
-    { expiresIn: '7d' }
-  );
-};
-
-// Register a new user
+// Register new user
 exports.register = async (req, res) => {
-  // Check validation errors
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ 
@@ -23,40 +13,33 @@ exports.register = async (req, res) => {
       errors: errors.array() 
     });
   }
-  
+
   const { username, email, password } = req.body;
-  
+
   try {
-    // Check if user already exists
     const existingUser = await User.findOne({ 
       where: {
         [Op.or]: [{ email }, { username }]
       }
     });
-    
+
     if (existingUser) {
       return res.status(400).json({ 
         success: false, 
         message: 'User with this email or username already exists' 
       });
     }
-    
-    // Create new user
-    const user = await User.create({
-      username,
-      email,
-      password
-    });
-    
-    // Generate token
+
+    const user = await User.create({ username, email, password });
     const token = generateToken(user);
-    
+
     res.status(201).json({
       success: true,
       message: 'User registered successfully',
       token,
       user
     });
+
   } catch (error) {
     console.error('Registration error:', error);
     res.status(500).json({ 
@@ -67,9 +50,8 @@ exports.register = async (req, res) => {
   }
 };
 
-// Login user
+// User Login
 exports.login = async (req, res) => {
-  // Check validation errors
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ 
@@ -78,39 +60,28 @@ exports.login = async (req, res) => {
       errors: errors.array() 
     });
   }
-  
+
   const { email, password } = req.body;
-  
+
   try {
-    // Find user by email
     const user = await User.findOne({ where: { email } });
-    
-    if (!user) {
+
+    if (!user || !(await user.comparePassword(password))) {
       return res.status(401).json({ 
         success: false, 
         message: 'Invalid credentials' 
       });
     }
-    
-    // Check password
-    const isMatch = await user.comparePassword(password);
-    
-    if (!isMatch) {
-      return res.status(401).json({ 
-        success: false, 
-        message: 'Invalid credentials' 
-      });
-    }
-    
-    // Generate token
+
     const token = generateToken(user);
-    
+
     res.json({
       success: true,
       message: 'Login successful',
       token,
       user
     });
+
   } catch (error) {
     console.error('Login error:', error);
     res.status(500).json({ 
@@ -121,7 +92,7 @@ exports.login = async (req, res) => {
   }
 };
 
-// Get current user
+//current user
 exports.getCurrentUser = async (req, res) => {
   try {
     res.json(req.user);

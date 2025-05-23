@@ -3,14 +3,17 @@ const dotenv = require('dotenv');
 
 dotenv.config();
 
-// Create Sequelize instance
+if (!process.env.DB_HOST || !process.env.DB_PORT || !process.env.DB_USER || !process.env.DB_PASSWORD || !process.env.DB_NAME) {
+  throw new Error('Missing required database environment variables.');
+}
+
 const sequelize = new Sequelize({
   dialect: 'mysql',
-  host: process.env.DB_HOST || 'localhost',
-  port: process.env.DB_PORT || 3306,
-  username: process.env.DB_USER || 'root',
-  password: process.env.DB_PASSWORD || 'shreyash3003@S',
-  database: process.env.DB_NAME || 'bloghub',
+  host: process.env.DB_HOST,
+  port: process.env.DB_PORT,
+  username: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
   logging: process.env.NODE_ENV === 'development' ? console.log : false,
   define: {
     underscored: true,

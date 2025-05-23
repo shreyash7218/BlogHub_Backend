@@ -1,7 +1,7 @@
 const { Category } = require('../models');
 const { validationResult } = require('express-validator');
 
-// Get all categories
+//all categories
 exports.getAllCategories = async (req, res) => {
   try {
     const categories = await Category.findAll({
@@ -19,7 +19,7 @@ exports.getAllCategories = async (req, res) => {
   }
 };
 
-// Get category by ID
+//category by ID
 exports.getCategoryById = async (req, res) => {
   try {
     const category = await Category.findByPk(req.params.id);
@@ -42,9 +42,9 @@ exports.getCategoryById = async (req, res) => {
   }
 };
 
-// Create a new category
+//new category
 exports.createCategory = async (req, res) => {
-  // Check validation errors
+  //validation
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ 
@@ -57,7 +57,7 @@ exports.createCategory = async (req, res) => {
   try {
     const { name, description } = req.body;
     
-    // Check if category already exists
+    // Check if already exists
     const existingCategory = await Category.findOne({ where: { name } });
     
     if (existingCategory) {
@@ -86,7 +86,7 @@ exports.createCategory = async (req, res) => {
 
 // Update a category
 exports.updateCategory = async (req, res) => {
-  // Check validation errors
+  //validation
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ 
@@ -108,7 +108,7 @@ exports.updateCategory = async (req, res) => {
     
     const { name, description } = req.body;
     
-    // If name is being updated, check if new name already exists
+    // Duplicate Check
     if (name && name !== category.name) {
       const existingCategory = await Category.findOne({ where: { name } });
       

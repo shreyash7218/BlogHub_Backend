@@ -11,7 +11,7 @@ router.get('/', categoryController.getAllCategories);
 // Get category by ID
 router.get('/:id', categoryController.getCategoryById);
 
-// Create a new category with validation
+// Create a new category
 router.post(
   '/',
   authenticate,
@@ -25,7 +25,7 @@ router.post(
   categoryController.createCategory
 );
 
-// Update a category with validation
+// Update a category
 router.put(
   '/:id',
   authenticate,
