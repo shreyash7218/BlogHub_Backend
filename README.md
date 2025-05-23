@@ -105,6 +105,8 @@ src/
 
 Watch a walkthrough of the BlogHub:  
 👉 [Demo](https://drive.google.com/file/d/1uqzKmYOXtvmi2n7_jbkwpuTcZN0oS6Zp/view?usp=sharing)
+👉 [Demo YouTube](https://youtu.be/4b6ShuIvaaQ?feature=shared)
+
 
 ## 🤖 How I Used AI to Build This
 
