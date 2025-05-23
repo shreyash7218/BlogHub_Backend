@@ -113,7 +113,7 @@ Watch a walkthrough of the BlogHub:
 I used AI tools like ChatGPT to help with:
 
 - 🧠 Planning the overall architecture and database schema
-- 🧩 Generating code snippets for repetitive parts
+- 🧩 Generating mind maps to visualize the project structure
 - 🐞 Debugging issues and suggesting optimizations
 - 📝 Writing documentation and comments
 
