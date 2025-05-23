@@ -2,6 +2,27 @@
 
 Backend API for the **BlogHub** platform — a full-stack blogging application built with Express.js and MySQL.
 
+****💡** My Approach to Solving the Problem**
+To build the frontend for BlogHub, I focused on creating a clean, intuitive, and responsive UI using ReactJS and Tailwind CSS. Here's how I approached it:
+
+Understanding the User Flow:
+I broke down the platform into key pages like Home, Post Detail, Dashboard, Login/Register, and Create/Edit Post. This helped define a clear routing structure using React Router.
+
+Rich Text Integration:
+I integrated CKEditor 5 as the rich text editor for blog post content, following the official React integration guide. This added a polished writing experience for users.
+
+Component-Driven Development:
+I created reusable components like BlogCard, BlogEditor, Navbar, and CategoryFilter to keep the codebase modular and maintainable.
+
+State and API Handling:
+React Context was used to manage user authentication state, while Axios handled all API communication with the backend. Conditional rendering helped protect private routes.
+
+Responsive Design:
+Using Tailwind CSS, I ensured the application looked great on both mobile and desktop. The design was kept minimal to prioritize readability and ease of navigation.
+
+Search and Filtering:
+I implemented frontend-based search functionality using dynamic filtering across blog post titles and content, and added category-based filters for better content discovery.
+
 ## 🚀 Features
 
 - 🔐 User authentication (register, login, get current user)
