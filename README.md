@@ -2,7 +2,7 @@
 
 Backend API for the **BlogHub** platform — a full-stack blogging application built with Express.js and MySQL.
 
-##****💡** My Approach to Solving the Problem**
+##💡 My Approach to Solving the Problem
 To build the frontend for BlogHub, I focused on creating a clean, intuitive, and responsive UI using ReactJS and Tailwind CSS. Here's how I approached it:
 
 Understanding the User Flow:
